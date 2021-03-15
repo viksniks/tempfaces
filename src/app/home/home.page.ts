@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import {ImagePicker,ImagePickerOptions} from "@ionic-native/image-picker/ngx";
 
-import { DomSanitizer ,SafeResourceUrl} from '@angular/platform-browser';
-import {InAppBrowser, InAppBrowserOptions} from "@ionic-native/in-app-browser/ngx";
+
 
 @Component({
   selector: 'app-home',
@@ -10,8 +10,8 @@ import {InAppBrowser, InAppBrowserOptions} from "@ionic-native/in-app-browser/ng
 })
 export class HomePage {
   images:string[]=[];
-  url:SafeResourceUrl;
-  constructor(private sanitizer: DomSanitizer,private browser:InAppBrowser) {
+  
+  constructor(private picker:ImagePicker) {
 
     
   }
@@ -20,22 +20,38 @@ export class HomePage {
 
 ngOnInit()
 {
-  var options:InAppBrowserOptions={
-       zoom: 'no',
-      fullscreen: "yes",
-      hidenavigationbuttons: "yes",
-      toolbar:'no',
-      toolbarcolor:"black",
-      hideurlbar: 'yes',
-      closebuttoncolor:"black",
-     // hidden:"no",
-     // hardwareback:"yes",
-      location:"no",
-      useWideViewPort:"no"
-    
-  }
-  this.browser.create("https://adultfaces.club","_blank",options);
   
+  
+  this.picker.hasReadPermission().then((val)=>{
+    
+    if(val)
+    {
+
+    }
+    else{
+      this.picker.requestReadPermission();
+    }
+  },(err)=>{
+    this.picker.requestReadPermission();
+  })
 }
- 
+  pickImages()
+{
+  
+  let options:ImagePickerOptions={
+    maximumImagesCount:10,
+    outputType:1
+  }
+  this.picker.getPictures(options).then((res)=>{
+    for(var i = 0;i<res.length;i++)
+    {
+      let str = "data:image/png;base64,"+res[i];
+      this.images.push(str);
+    }
+    
+  },(err)=>{
+    alert(JSON.stringify(err));
+  })
+}
+
 }

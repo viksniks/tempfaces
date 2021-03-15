@@ -8,7 +8,15 @@
 
 <ion-content>
  
- 
+ <ion-button (click)="pickImages()">pickImages()</ion-button>
+ <br />
+ <ion-grid>
+   <ion-row>
+     <ion-col *ngFor="let img of images" size="4">
+       <img [src]="img" />
+     </ion-col>
+   </ion-row>
+ </ion-grid>
    
   
 </ion-content>
