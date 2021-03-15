@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Platform} from "@ionic/angular";
+import {AppMinimize} from "@ionic-native/app-minimize/ngx";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private platform:Platform,private minimize:AppMinimize) {
+   
+    // this.platform.backButton.subscribeWithPriority(99999999,()=>{
+      
+    //   this.minimize.minimize();
+    // })
+  }
 }

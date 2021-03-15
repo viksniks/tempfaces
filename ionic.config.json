@@ -1,5 +1,7 @@
 {
   "name": "picker",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
